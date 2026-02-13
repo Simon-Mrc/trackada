@@ -1,9 +1,10 @@
 import {readFileSync, existsSync} from "fs";
 import {join} from "path";
 import {homedir} from "os";
+import fs from 'fs';
 
 const fjson = JSON.parse(readFileSync("./track.json"));
-const home = fjson.root.replace("~", homedir());
+const home = join(fjson.root.replace("~", homedir()));
 let allToCreate = [];
 
 if(existsSync(home)!=true){ 
@@ -80,7 +81,16 @@ if(existsSync(home)===true){
     console.log(pourcentage+`% des projets sont initialisés correctements. (${totalBon}/${nbTotalProjets})`);
 }
 console.log(allToCreate);
-/*
-function createMissing(){
 
-}*/
+function createMissing(){
+    for (let i = 0 ; i<allToCreate.length ; i= i +1){
+        if(allToCreate[i].type == "folder"){
+            fs.mkdirSync(join(allToCreate[i].adress,allToCreate[i].name));
+        }
+        if(allToCreate[i].type == "file"){
+            fs.writeFileSync(join(allToCreate[i].adress,allToCreate[i].name),``);
+        }
+    }
+
+}
+createMissing();
