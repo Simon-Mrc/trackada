@@ -141,7 +141,7 @@ inquirer.prompt([
     }
   ])
   .then((answers) => {
-    if (answers.yesOrno) {
+    if (answers.yesOrno === true) {
       console.log(`Starting creation !`);
       createMissing();
     } else {
