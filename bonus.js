@@ -5,10 +5,9 @@ import {homedir} from "os";
 const fjson = JSON.parse(readFileSync("./track.json"));
 const home = fjson.root.replace("~", homedir());
 let allToCreate = [];
-let whatToCreat={
-    name : "" ,
-    type : "" ,
-    adress: ""
+
+if(existsSync(home)!=true){ 
+    console.log("The first thing you have to do is to create ada folder correctly");
 }
 
 if(existsSync(home)===true){
@@ -24,7 +23,13 @@ if(existsSync(home)===true){
                 if(existsSync(filePath)===true){
                 }
                 else{
-                    verif.push(fjson.projects[i].required[j]);                 }
+                    verif.push(fjson.projects[i].required[j]);
+                    allToCreate.push({
+                        name : fjson.projects[i].required[j],
+                        type : "file",
+                        adress : dossPath
+                    });
+                }
             }
             if(verif == "" && gitExist === true ){ 
                 console.log(`✅ dossier du projet ${fjson.projects[i].name}`);
@@ -34,6 +39,11 @@ if(existsSync(home)===true){
                 console.log(`❌ dossier du projet ${fjson.projects[i].name}`);
                 if(gitExist === false){
                     console.log(`- le repository git n'est pas initialisé`);
+                    allToCreate.push({
+                        name : ".git",
+                        type : "file",
+                        adress : dossPath
+                    })
                 }
                 if(verif.length === 1){
                     console.log(`- Il manque `+verif[0]);
@@ -50,6 +60,11 @@ if(existsSync(home)===true){
         else{
             console.log(`❌ dossier du projet ${fjson.projects[i].name}`);
             console.log(`- le dossier n'existe pas où n'est pas nommé correctement`);
+            allToCreate.push({
+                name : fjson.projects[i].name,
+                type : "folder",
+                adress : home
+            })
         }
     }
     const nbTotalProjets = (fjson.projects.length);
@@ -64,11 +79,8 @@ if(existsSync(home)===true){
     }
     console.log(pourcentage+`% des projets sont initialisés correctements. (${totalBon}/${nbTotalProjets})`);
 }
-
-else{ 
-    console.log("The first thing you have to do is to create ada folder correctly");
-}
-
+console.log(allToCreate);
+/*
 function createMissing(){
 
-}
+}*/
