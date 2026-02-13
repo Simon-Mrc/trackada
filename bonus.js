@@ -91,15 +91,28 @@ function createMissing(){
         }
         if(allToCreate[i].type == "file"){
             let check = 0;
+            let newNameFolder = [];
+            let newNameFile = [];
             for (let j = 0 ; j<allToCreate[i].name.length; j= j+1){
                 if(allToCreate[i].name[j]=="/"){
                     check = 1;
+                    j = j+1;
 // need to add a part where i have to create the missing folder and file inside it
+                }
+                if(check === 0){
+                    newNameFolder.push(allToCreate[i].name[j]);
+                }
+                if(check === 1){
+                    newNameFile.push(allToCreate[i].name[j]);
                 }
             }
             if(check === 0){
             fs.writeFileSync(join(allToCreate[i].adress,allToCreate[i].name),``);
-        }
+            }
+            if(check === 1){
+                fs.mkdirSync(join(allToCreate[i].adress,newNameFolder.join(``))); // probleme with already existing folder but not file
+                fs.writeFileSync(join(join(allToCreate[i].adress,newNameFolder.join(``)),newNameFile.join(``)),``);
+            }
         }
     }
 
