@@ -74,6 +74,11 @@ if(existsSync(home)===true){
                     adress : dossPath
                 })
             }
+            allToCreate.push({
+                name : ".git",
+                type : "file",
+                adress : dossPath
+            })
         }
     }
     const nbTotalProjets = (fjson.projects.length);
