@@ -2,6 +2,7 @@ import {readFileSync, existsSync} from "fs";
 import {join} from "path";
 import {homedir} from "os";
 import fs from 'fs';
+import inquirer from 'inquirer';
 
 const fjson = JSON.parse(readFileSync("./track.json"));
 const home = join(fjson.root.replace("~", homedir()));
@@ -130,4 +131,20 @@ function createMissing(){
     }// end of reading allToCreat const
 }// end of function
 // need to add a prompt that asked the user if he wants the script to actually creat all missing stuff.
-createMissing();
+
+inquirer.prompt([
+    {
+      type: 'confirm',
+      name: 'yesOrno',
+      message: 'Do you want me to create all the missing folder and files for you?',
+      default: false
+    }
+  ])
+  .then((answers) => {
+    if (answers.yesOrno) {
+      console.log(`Starting creation !`);
+      createMissing();
+    } else {
+      console.log(`I did not created what's missing`);
+    }
+  });

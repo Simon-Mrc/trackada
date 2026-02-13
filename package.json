@@ -1,0 +1,10 @@
+{
+  "type": "module",
+  "name": "trackada",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bonus.js",
+  "dependencies": {
+    "inquirer": "^13.2.2"
+  }
+}
