@@ -80,18 +80,21 @@ if(existsSync(home)===true){
     }
     console.log(pourcentage+`% des projets sont initialisés correctements. (${totalBon}/${nbTotalProjets})`);
 }
-//console.log(allToCreate);
+
 
 function createMissing(){
     for (let i = 0 ; i<allToCreate.length ; i= i +1){
         if(allToCreate[i].type == "folder"){
             fs.mkdirSync(join(allToCreate[i].adress,allToCreate[i].name));
+// need to add a part that create all the files from missing folder here
+// files not created in allToCreate
         }
         if(allToCreate[i].type == "file"){
             let check = 0;
             for (let j = 0 ; j<allToCreate[i].name.length; j= j+1){
                 if(allToCreate[i].name[j]=="/"){
                     check = 1;
+// need to add a part where i have to create the missing folder and file inside it
                 }
             }
             if(check === 0){
