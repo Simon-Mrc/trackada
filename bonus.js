@@ -80,7 +80,7 @@ if(existsSync(home)===true){
     }
     console.log(pourcentage+`% des projets sont initialisés correctements. (${totalBon}/${nbTotalProjets})`);
 }
-console.log(allToCreate);
+//console.log(allToCreate);
 
 function createMissing(){
     for (let i = 0 ; i<allToCreate.length ; i= i +1){
@@ -88,7 +88,15 @@ function createMissing(){
             fs.mkdirSync(join(allToCreate[i].adress,allToCreate[i].name));
         }
         if(allToCreate[i].type == "file"){
+            let check = 0;
+            for (let j = 0 ; j<allToCreate[i].name.length; j= j+1){
+                if(allToCreate[i].name[j]=="/"){
+                    check = 1;
+                }
+            }
+            if(check === 0){
             fs.writeFileSync(join(allToCreate[i].adress,allToCreate[i].name),``);
+        }
         }
     }
 
