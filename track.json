@@ -40,6 +40,10 @@
         {
             "name": "adaverse-2",
             "required": []
+        },
+        {
+            "name" : "projetPerso",
+            "required": []
         }
     ]
 }
